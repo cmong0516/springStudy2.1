@@ -1,8 +1,10 @@
 package com.example.demo;
 
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
-
+@Component
 public class OrderServiceimpl implements OrderService{
     // memberRepository 의 구현체는 new MemoryMemberRepository();
     private final MemberRepository memberRepository;
@@ -12,6 +14,7 @@ public class OrderServiceimpl implements OrderService{
     // 할인 정책이 변경될경우 위의 코드를 수정해주어야한다.
     private final DiscountPolicy discountPolicy;
 
+    @Autowired
     public OrderServiceimpl(MemberRepository memberRepository, DiscountPolicy discountPolicy) {
         this.memberRepository = memberRepository;
         this.discountPolicy = discountPolicy;
@@ -22,5 +25,9 @@ public class OrderServiceimpl implements OrderService{
         Member member = memberRepository.findById(memberId);
         int discountPrice = discountPolicy.discount(member, itemPrice);
         return new Order(memberId, itemName, itemPrice, discountPrice);
+    }
+
+    public MemberRepository getMemberRepository() {
+        return memberRepository;
     }
 }
