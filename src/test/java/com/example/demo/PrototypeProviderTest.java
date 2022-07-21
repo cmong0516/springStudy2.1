@@ -44,6 +44,7 @@ public class PrototypeProviderTest {
 //    }
 
     static class ClientBean {
+
         @Autowired
         private ApplicationContext ac;
         public int logic() {
